@@ -44,7 +44,7 @@ namespace SmartObjectParser
             logLst.Items.Add("Added " + expectedCount +  " random items to list");
            
           
-            String resultingParseString = O.saveObjectsList<myTestClass>(testList);
+            String resultingParseString = O.storeObjectsList<myTestClass>(testList);
           
             List<myTestClass> resultingParsedList = new List<myTestClass>();
             

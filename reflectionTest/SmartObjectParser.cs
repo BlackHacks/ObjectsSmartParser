@@ -86,7 +86,7 @@ namespace SmartObjectParser
             return result;
         }
 
-        public String saveSingleObject<GenType>(GenType i)
+        public String storeSingleObject<GenType>(GenType i)
         {
             List<String> fields = getFieldsList(i);
             String result = "";
@@ -97,12 +97,12 @@ namespace SmartObjectParser
             return result;
         }
 
-        public String saveObjectsList<GenType>(List<GenType> i)
+        public String storeObjectsList<GenType>(List<GenType> i)
         {
             String result = "";
             foreach (GenType e in i)
             {
-                result += saveSingleObject<GenType>(e);
+                result += storeSingleObject<GenType>(e);
             }
 
             return result;
