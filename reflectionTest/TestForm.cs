@@ -48,7 +48,7 @@ namespace SmartObjectParser
           
             List<myTestClass> resultingParsedList = new List<myTestClass>();
             
-            O.smartParseListBlock<myTestClass>(resultingParseString, resultingParsedList);
+            O.smartParseBlock<myTestClass>(resultingParseString, resultingParsedList);
 
             parsedStringRchTxt.Text = resultingParseString;
             

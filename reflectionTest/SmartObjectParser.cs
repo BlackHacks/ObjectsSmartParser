@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace SmartObjectParser
 {
@@ -51,9 +52,10 @@ namespace SmartObjectParser
             setFieldValue(obj, fieldName, line.Substring(firstTagLocation + 2));
         }
 
-        public void smartParseListBlock<GenType>(String blockText, List<GenType> resultList) where GenType : new()
+        public void smartParseBlock<GenType>(String blockText, List<GenType> resultList) where GenType : new()
         {
             int fieldCount = getFieldsList(new GenType()).Count;
+            
             GenType internalTempObject = new GenType();
             String[] newLineSplitArray = blockText.Split('\n');
             for (int i = 0; i < newLineSplitArray.Length; i++)
@@ -65,12 +67,20 @@ namespace SmartObjectParser
                     internalTempObject = new GenType();
                 }
 
-                if (newLineSplitArray[i] != "")
+                if (newLineSplitArray[i].Length > 2)
                 {
                     smartParseSingleLine(newLineSplitArray[i], internalTempObject);
                 }
 
             }
+        }
+
+        public void smartParseFile<GenType>(String filePath, List<GenType> resultList) where GenType : new()
+        {
+                StreamReader reader = new StreamReader(filePath);
+                String blockText = reader.ReadToEnd();
+                reader.Close();
+                smartParseBlock<GenType>(blockText, resultList);
         }
 
         public List<String> getFieldsList(object obj)
@@ -85,6 +95,19 @@ namespace SmartObjectParser
             return result;
         }
 
+        public void storeObjectListToFile<GenType>(String filePath, List<GenType> i , Boolean append)
+        {
+            StreamWriter writer = new StreamWriter(filePath, append);
+            writer.WriteLine(storeObjectsList<GenType>(i));
+            writer.Close();
+        }
+        public void storeSingleObjectToFile<GenType>(String filePath,GenType i, Boolean append)
+        {
+            StreamWriter writer = new StreamWriter(filePath, append);
+            writer.WriteLine(storeSingleObject<GenType>(i));
+            writer.Close();
+        }
+        
         public String storeSingleObject<GenType>(GenType i)
         {
             List<String> fields = getFieldsList(i);
