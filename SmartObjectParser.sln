@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "reflectionTest", "reflectionTest\reflectionTest.csproj", "{ED8A618C-FAC9-4901-A376-FC7C81DAE7A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartObjectParser", "reflectionTest\SmartObjectParser.csproj", "{ED8A618C-FAC9-4901-A376-FC7C81DAE7A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

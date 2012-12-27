@@ -2,68 +2,68 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace reflectionTest
+namespace SmartObjectParser
 {
     class SmartObjectParser
     {
-        public object getFieldValue(object i, String fieldName)
+        public object getFieldValue(object obj, String fieldName)
         {
-            System.Reflection.FieldInfo reflect = i.GetType().GetField(fieldName);
-            System.Reflection.FieldInfo[] reflectFields = i.GetType().GetFields();
+            System.Reflection.FieldInfo reflect = obj.GetType().GetField(fieldName);
+            System.Reflection.FieldInfo[] reflectFields = obj.GetType().GetFields();
             String t = reflectFields[0].Name;
-            return reflect.GetValue(i);
+            return reflect.GetValue(obj);
         }
 
-        public void setFieldValue(object i, String fieldName, String value)
+        public void setFieldValue(object obj, String fieldName, String value)
         {
             value = value.Substring(0, value.Length - 1);
-            System.Reflection.FieldInfo reflect = i.GetType().GetField(fieldName);
+            System.Reflection.FieldInfo reflect = obj.GetType().GetField(fieldName);
             String type = reflect.FieldType.ToString();
             //System.String  System.Int32  System.Double System.Single System.Boolean
             if (type == "System.String")
             {
-                reflect.SetValue(i, value);
+                reflect.SetValue(obj, value);
             }
             if (type == "System.Int32")
             {
-                reflect.SetValue(i, Int32.Parse(value));
+                reflect.SetValue(obj, Int32.Parse(value));
 
             }
             if (type == "System.Double")
             {
-                reflect.SetValue(i, double.Parse(value));
+                reflect.SetValue(obj, double.Parse(value));
 
             }
             if (type == "System.Single")
             {
-                reflect.SetValue(i, float.Parse(value));
+                reflect.SetValue(obj, float.Parse(value));
 
             }
             if (type == "System.Boolean")
             {
-                reflect.SetValue(i, Boolean.Parse(value));
+                reflect.SetValue(obj, Boolean.Parse(value));
             }
         }
 
-        public void smartParseSingleLine(String line, object i)
+        public void smartParseSingleLine(String line, object obj)
         {
             int loc = line.IndexOf(">");
             String fieldName = line.Substring(1, loc - 1);
-            setFieldValue(i, fieldName, line.Substring(loc + 2));
+            setFieldValue(obj, fieldName, line.Substring(loc + 2));
         }
 
-        public void smartParseListBlock<T>(String text, List<T> list) where T : new()
+        public void smartParseListBlock<GenType>(String blockText, List<GenType> resultList) where GenType : new()
         {
-            int fieldNum = getFieldsList(new T()).Count;
-            T f = new T();
-            String[] splitter = text.Split('\n');
+            int fieldNum = getFieldsList(new GenType()).Count;
+            GenType f = new GenType();
+            String[] splitter = blockText.Split('\n');
             for (int i = 0; i < splitter.Length; i++)
             {
                 if ((i % fieldNum == 0 && i != 0))
                 {
-                    T B = f;
-                    list.Add(B);
-                    f = new T();
+                    GenType B = f;
+                    resultList.Add(B);
+                    f = new GenType();
                 }
 
                 if (splitter[i] != "")
@@ -74,10 +74,10 @@ namespace reflectionTest
             }
         }
 
-        public List<String> getFieldsList(object i)
+        public List<String> getFieldsList(object obj)
         {
             List<String> result = new List<String>();
-            System.Reflection.FieldInfo[] reflectFields = i.GetType().GetFields();
+            System.Reflection.FieldInfo[] reflectFields = obj.GetType().GetFields();
             foreach (System.Reflection.FieldInfo r in reflectFields)
             {
                 result.Add(r.Name.ToString());
@@ -86,7 +86,7 @@ namespace reflectionTest
             return result;
         }
 
-        public String saveSingleObject<T>(T i)
+        public String saveSingleObject<GenType>(GenType i)
         {
             List<String> fields = getFieldsList(i);
             String result = "";
@@ -97,12 +97,12 @@ namespace reflectionTest
             return result;
         }
 
-        public String saveObjectsList<T>(List<T> i)
+        public String saveObjectsList<GenType>(List<GenType> i)
         {
             String result = "";
-            foreach (T e in i)
+            foreach (GenType e in i)
             {
-                result += saveSingleObject<T>(e);
+                result += saveSingleObject<GenType>(e);
             }
 
             return result;

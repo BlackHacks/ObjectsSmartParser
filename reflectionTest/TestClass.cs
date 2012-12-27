@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace reflectionTest
+namespace SmartObjectParser
 {
     class myTestClass
     {

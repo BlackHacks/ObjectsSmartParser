@@ -1,4 +1,4 @@
-﻿namespace reflectionTest
+﻿namespace SmartObjectParser
 {
     partial class TestForm
     {

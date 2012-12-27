@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace reflectionTest
+namespace SmartObjectParser
 {
 
     public partial class TestForm : Form

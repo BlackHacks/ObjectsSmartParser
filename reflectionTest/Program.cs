@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace reflectionTest
+namespace SmartObjectParser
 {
     static class Program
     {
