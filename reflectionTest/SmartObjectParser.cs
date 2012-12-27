@@ -10,7 +10,6 @@ namespace SmartObjectParser
         {
             System.Reflection.FieldInfo reflect = obj.GetType().GetField(fieldName);
             System.Reflection.FieldInfo[] reflectFields = obj.GetType().GetFields();
-            String t = reflectFields[0].Name;
             return reflect.GetValue(obj);
         }
 
@@ -47,28 +46,28 @@ namespace SmartObjectParser
 
         public void smartParseSingleLine(String line, object obj)
         {
-            int loc = line.IndexOf(">");
-            String fieldName = line.Substring(1, loc - 1);
-            setFieldValue(obj, fieldName, line.Substring(loc + 2));
+            int firstTagLocation = line.IndexOf(">");
+            String fieldName = line.Substring(1, firstTagLocation - 1);
+            setFieldValue(obj, fieldName, line.Substring(firstTagLocation + 2));
         }
 
         public void smartParseListBlock<GenType>(String blockText, List<GenType> resultList) where GenType : new()
         {
-            int fieldNum = getFieldsList(new GenType()).Count;
-            GenType f = new GenType();
-            String[] splitter = blockText.Split('\n');
-            for (int i = 0; i < splitter.Length; i++)
+            int fieldCount = getFieldsList(new GenType()).Count;
+            GenType internalTempObject = new GenType();
+            String[] newLineSplitArray = blockText.Split('\n');
+            for (int i = 0; i < newLineSplitArray.Length; i++)
             {
-                if ((i % fieldNum == 0 && i != 0))
+                if ((i % fieldCount == 0 && i != 0))
                 {
-                    GenType B = f;
+                    GenType B = internalTempObject; // rough clone
                     resultList.Add(B);
-                    f = new GenType();
+                    internalTempObject = new GenType();
                 }
 
-                if (splitter[i] != "")
+                if (newLineSplitArray[i] != "")
                 {
-                    smartParseSingleLine(splitter[i], f);
+                    smartParseSingleLine(newLineSplitArray[i], internalTempObject);
                 }
 
             }
