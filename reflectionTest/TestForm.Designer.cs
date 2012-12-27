@@ -35,6 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -48,30 +49,30 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.testBtn_Click);
             // 
-            // listBox1
+            // logLst
             // 
             this.logLst.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.logLst.FormattingEnabled = true;
             this.logLst.Location = new System.Drawing.Point(4, 24);
-            this.logLst.Name = "listBox1";
+            this.logLst.Name = "logLst";
             this.logLst.Size = new System.Drawing.Size(250, 316);
             this.logLst.TabIndex = 4;
             // 
-            // parseResults
+            // parsedStringRchTxt
             // 
             this.parsedStringRchTxt.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.parsedStringRchTxt.Location = new System.Drawing.Point(261, 24);
-            this.parsedStringRchTxt.Name = "parseResults";
+            this.parsedStringRchTxt.Name = "parsedStringRchTxt";
             this.parsedStringRchTxt.Size = new System.Drawing.Size(307, 284);
             this.parsedStringRchTxt.TabIndex = 5;
             this.parsedStringRchTxt.Text = "";
             // 
-            // listBox2
+            // parseResultLst
             // 
             this.parseResultLst.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.parseResultLst.FormattingEnabled = true;
             this.parseResultLst.Location = new System.Drawing.Point(574, 24);
-            this.parseResultLst.Name = "listBox2";
+            this.parseResultLst.Name = "parseResultLst";
             this.parseResultLst.Size = new System.Drawing.Size(250, 316);
             this.parseResultLst.TabIndex = 6;
             // 
@@ -105,12 +106,24 @@
             this.label3.TabIndex = 9;
             this.label3.Text = "Parse Results";
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.button2.Location = new System.Drawing.Point(262, 163);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(307, 23);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "Test";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(831, 348);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -134,6 +147,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button2;
     }
 }
 

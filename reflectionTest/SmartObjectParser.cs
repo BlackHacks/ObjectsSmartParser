@@ -7,11 +7,20 @@ namespace SmartObjectParser
 {
     class SmartObjectParser
     {
-        public object getFieldValue(object obj, String fieldName)
+        public object getFieldValue<GenType>(GenType obj, String fieldName)
         {
-            System.Reflection.FieldInfo reflect = obj.GetType().GetField(fieldName);
-            System.Reflection.FieldInfo[] reflectFields = obj.GetType().GetFields();
-            return reflect.GetValue(obj);
+            Type t = typeof(GenType);
+            if (t.IsPrimitive || t == typeof(Decimal) || t == typeof(String))
+            {
+                return obj;
+            }
+            else
+            {
+                System.Reflection.FieldInfo reflect = obj.GetType().GetField(fieldName);
+                System.Reflection.FieldInfo[] reflectFields = obj.GetType().GetFields();
+                return reflect.GetValue(obj);
+            }
+
         }
 
         public void setFieldValue(object obj, String fieldName, String value)
@@ -101,6 +110,7 @@ namespace SmartObjectParser
             writer.WriteLine(storeObjectsList<GenType>(i));
             writer.Close();
         }
+    
         public void storeSingleObjectToFile<GenType>(String filePath,GenType i, Boolean append)
         {
             StreamWriter writer = new StreamWriter(filePath, append);
@@ -110,11 +120,17 @@ namespace SmartObjectParser
         
         public String storeSingleObject<GenType>(GenType i)
         {
+            Type t = typeof(GenType);
+            if (t.IsPrimitive || t == typeof(Decimal) || t == typeof(String))
+            {
+                return "<" + t.ToString() + "> " +  i.ToString() + Environment.NewLine;
+            }
+
             List<String> fields = getFieldsList(i);
             String result = "";
             foreach (String f in fields)
             {
-                result += "<" + f + "> " + getFieldValue(i, f).ToString().Replace(Environment.NewLine, "\n") + Environment.NewLine;
+                result += "<" + f + "> " + getFieldValue<GenType>(i, f).ToString().Replace(Environment.NewLine, "\n") + Environment.NewLine;
             }
             return result;
         }

@@ -70,5 +70,23 @@ namespace SmartObjectParser
             
             
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            List<String> a = new List<String>();
+            a.Add("1");
+            a.Add("2");
+            a.Add("3");
+            a.Add("4");
+            a.Add("5");
+            a.Add("6");
+            SmartObjectParser O = new SmartObjectParser();
+            String test = O.storeObjectsList<String>(a);
+            List<String> result = new List<String>();
+            O.smartParseBlock<String>(test, result);
+
+            MessageBox.Show(test);
+
+        }
     }
 }
